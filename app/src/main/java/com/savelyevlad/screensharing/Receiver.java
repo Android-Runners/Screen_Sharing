@@ -46,7 +46,7 @@ public class Receiver implements Runnable {
     }
 
     private void changeImage(final Bitmap bitmap) {
-        activityWatch.getActivity().runOnUiThread(new Runnable() {
+        MainActivity.getMain().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 imageView.setImageBitmap(bitmap);

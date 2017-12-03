@@ -98,12 +98,30 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
+    public static MainActivity getMain() {
+        return main;
+    }
+
+    public static void setMain(MainActivity main) {
+        MainActivity.main = main;
+    }
+
+    private static MainActivity main;
     private SharingFragment sharingFragment = new SharingFragment();
     private WatchFragment watchFragment = new WatchFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
     private HelpFragment helpFragment = new HelpFragment();
 
     private int lastSelected = 0;
+
+    @Override
+    public FragmentManager getFragmentManager() {
+        return fragmentManager;
+    }
+
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
 
     @SuppressLint("CommitTransaction")
     @SuppressWarnings("StatementWithEmptyBody")
@@ -120,7 +138,7 @@ public class MainActivity extends Activity
         }
 
         lastSelected = id;
-
+        main = this;
         Log.e("lol", "here");
 
         if (id == R.id.nav_share) {
