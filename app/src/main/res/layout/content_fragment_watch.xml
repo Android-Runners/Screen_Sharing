@@ -43,7 +43,7 @@
                 android:layout_height="match_parent"
                 android:weightSum="1">
 
-                <ImageView
+                <com.savelyevlad.screensharing.TouchImageView
                     android:id="@+id/imageView"
                     android:layout_width="127dp"
                     android:layout_height="400dp"
