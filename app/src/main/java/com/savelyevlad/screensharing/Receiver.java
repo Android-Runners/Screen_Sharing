@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
+import com.savelyevlad.screensharing.watch.WatchFragment;
+
 public class Receiver implements Runnable {
 
     private byte[] concat(byte[] a, byte[] b) {
@@ -15,12 +17,12 @@ public class Receiver implements Runnable {
     }
     private ImageView imageView;
 
-//    private ActivityWatch activityWatch;
+    private WatchFragment activityWatch;
 
-//    public Receiver(ActivityWatch activityWatch, ImageView imageView) {
-//        this.imageView = imageView;
-//        this.activityWatch = activityWatch;
-//    }
+    public Receiver(WatchFragment activityWatch, ImageView imageView) {
+        this.imageView = imageView;
+        this.activityWatch = activityWatch;
+    }
 
     @Override
     public void run() {

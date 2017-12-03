@@ -140,7 +140,7 @@ public class MainActivity extends Activity
                 Bundle bundle = new Bundle();
                 bundle.putString(KEY_MSG_2, "lol");
                 watchFragment.setArguments(bundle);
-
+                watchFragment.setMain(this);
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container, watchFragment, TAG_2);
                 fragmentTransaction.commit();
