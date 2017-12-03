@@ -62,11 +62,6 @@ public class MainActivity extends Activity
         navigationView.getMenu().getItem(0).setChecked(true);
 
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
-
-//        SharingOnClickSetter sharingOnClickSetter = new SharingOnClickSetter(startButton, stopButton, textID, this);
-//        sharingOnClickSetter.start();
-//
-//        projectionManager = sharingOnClickSetter.getProjectionManager();
     }
 
     @Override
