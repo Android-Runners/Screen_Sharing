@@ -26,7 +26,7 @@ public final class WatchFragment extends Fragment {
     private FloatingActionButton pauseFab;
     private ImageView imageView;
 
-    private EditText editText;
+    private EditText editTextID;
     private WatchFragment activityWatch;
 
     private boolean canJoin = false;
@@ -63,11 +63,11 @@ public final class WatchFragment extends Fragment {
         if(bundle != null) {
             String msg = bundle.getString(KEY_MSG_2);
             if(msg != null) {
-                Log.e("lol", "in watch");
-                editText = main.findViewById(R.id.editText_ID);
-                startFab = main.findViewById(R.id.startFab);
-                imageView = main.findViewById(R.id.imageView);
-                pauseFab = main.findViewById(R.id.pauseFab);
+                Log.e("lol", "in watch " + (main == null));
+                startFab = view.findViewById(R.id.startFab);
+                imageView = view.findViewById(R.id.imageView);
+                pauseFab = view.findViewById(R.id.pauseFab);
+                editTextID = view.findViewById(R.id.editText_ID);
               //  activityWatch = this;
 
                 PublicStaticObjects.initSocket();
@@ -97,8 +97,8 @@ public final class WatchFragment extends Fragment {
                             public void run() {
                                 try {
                                     PublicStaticObjects.getObjectOutputStream().writeObject(-3);
-                                    id = Integer.valueOf(String.valueOf(editText.getText()));
-                                    PublicStaticObjects.getObjectOutputStream().writeObject(Integer.valueOf(String.valueOf(editText.getText())));
+                                    id = Integer.valueOf(String.valueOf(editTextID.getText()));
+                                    PublicStaticObjects.getObjectOutputStream().writeObject(Integer.valueOf(String.valueOf(editTextID.getText())));
                                     try {
                                         Object object = PublicStaticObjects.getObjectInputStream().readObject();
                                         if (!object.equals("-3")) {

@@ -56,12 +56,12 @@ public final class SettingsFragment extends Fragment {
         if(bundle != null) {
             String msg = bundle.getString(KEY_MSG_3);
             if(msg != null) {
-                Log.e("lol", "in settings");
-                editTextIp = main.findViewById(R.id.editText_ip);
-                editTextPORT = main.findViewById(R.id.editText_port);
+                Log.e("lol", "in settings " + (main == null));
+                editTextIp = view.findViewById(R.id.editText_ip);
+                editTextPORT = view.findViewById(R.id.editText_port);
+                editTextBar = view.findViewById(R.id.textQuality);
+                seekBar = view.findViewById(R.id.seekBar);
 
-                editTextBar = main.findViewById(R.id.textQuality);
-                seekBar = main.findViewById(R.id.seekBar);
                 seekBar.setMax(90);
                 seekBar.incrementProgressBy(1);
                 seekBar.setProgress(PublicStaticObjects.getQuality());
@@ -95,7 +95,7 @@ public final class SettingsFragment extends Fragment {
                     }
                 });
 
-                buttonSave = main.findViewById(R.id.button_save);
+                buttonSave = view.findViewById(R.id.button_save);
 
                 Log.e("", (editTextPORT == null) + "");
 
@@ -114,7 +114,7 @@ public final class SettingsFragment extends Fragment {
                         try {
                             InetAddress inetAddress = InetAddress.getByName(IP);
                         } catch (Exception e) {
-                            Context context = main.getApplicationContext();
+                            Context context = view.getContext().getApplicationContext();
                             CharSequence text = "It's not an IP!";
                             int duration = Toast.LENGTH_SHORT;
                             Toast toast = Toast.makeText(context, text, duration);

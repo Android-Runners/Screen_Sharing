@@ -21,9 +21,9 @@ public class PublicStaticObjects {
     }
 
     public static boolean isClicked() {
-
         return isClicked;
     }
+
 
     public static void setIsClicked(boolean isClicked) {
         PublicStaticObjects.isClicked = isClicked;

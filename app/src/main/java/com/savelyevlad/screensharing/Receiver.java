@@ -3,6 +3,7 @@ package com.savelyevlad.screensharing;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.savelyevlad.screensharing.watch.WatchFragment;
@@ -27,29 +28,30 @@ public class Receiver implements Runnable {
     @Override
     public void run() {
         while (true) {
-            synchronized (this) {
-//                if (!ActivityWatch.isMustBeAlive()) {
-//                    return;
-//                }
-            }
+        /*    synchronized (this) {
+                if (!ActivityWatch.isMustBeAlive()) {
+                   return;
+                }
+            }*/
             try {
                 byte[] buf = (byte[])PublicStaticObjects.getObjectInputStream().readObject();
                 Bitmap receiveBitmap = BitmapFactory.decodeByteArray(buf, 0, buf.length);
                 PublicStaticObjects.setCount(PublicStaticObjects.getCount()+1);
+                Log.e("in Receiver", "" + (receiveBitmap == null));
                 changeImage(receiveBitmap);
             } catch (Throwable e) {
-                e.printStackTrace();
+                Log.e("!!!!!!",e.getMessage());
             }
         }
     }
 
     private void changeImage(final Bitmap bitmap) {
-//        activityWatch.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                imageView.setImageBitmap(bitmap);
+        activityWatch.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                imageView.setImageBitmap(bitmap);
             }
-//        });
+        });
 
     }
-//}
+}
