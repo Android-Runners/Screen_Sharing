@@ -2,53 +2,23 @@ package com.savelyevlad.screensharing;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.PixelFormat;
-import android.graphics.Point;
-import android.hardware.display.DisplayManager;
-import android.media.Image;
-import android.media.ImageReader;
-import android.media.projection.MediaProjection;
-import android.media.projection.MediaProjectionManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
-import com.savelyevlad.screensharing.sharing.SharingOnClickSetter;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
+import com.savelyevlad.screensharing.help.HelpFragment;
+import com.savelyevlad.screensharing.settings.SettingsFragment;
+import com.savelyevlad.screensharing.sharing.SharingFragment;
+import com.savelyevlad.screensharing.watch.WatchFragment;
 
 public class MainActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,86 +34,6 @@ public class MainActivity extends Activity
     final static String KEY_MSG_2 = "FRAGMENT2_MSG";
     final static String KEY_MSG_3 = "FRAGMENT3_MSG";
     final static String KEY_MSG_4 = "FRAGMENT4_MSG";
-
-    public static class SharingFragment extends Fragment {
-
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-            @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.fragment_sharing, null);
-
-            Bundle bundle = getArguments();
-
-            if(bundle != null) {
-                String msg = bundle.getString(KEY_MSG_1);
-                if(msg != null) {
-                    // wtf
-                }
-            }
-
-            return view;
-        }
-    }
-
-    public static class WatchFragment extends Fragment {
-
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-            @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.fragment_watch, null);
-
-            Bundle bundle = getArguments();
-
-            if(bundle != null) {
-                String msg = bundle.getString(KEY_MSG_2);
-                if(msg != null) {
-                    // wtf
-                }
-            }
-
-            return view;
-        }
-    }
-
-    public static class SettingsFragment extends Fragment {
-
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-            @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.fragment_settings, null);
-
-            Bundle bundle = getArguments();
-
-            if(bundle != null) {
-                String msg = bundle.getString(KEY_MSG_3);
-                if(msg != null) {
-                    // wtf
-                }
-            }
-
-            return view;
-        }
-    }
-
-    public static class HelpFragment extends Fragment {
-
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-            @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.fragment_help, null);
-
-            Bundle bundle = getArguments();
-
-            if(bundle != null) {
-                String msg = bundle.getString(KEY_MSG_4);
-                if(msg != null) {
-                    // wtf
-                }
-            }
-
-            return view;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,6 +122,8 @@ public class MainActivity extends Activity
         }
 
         lastSelected = id;
+
+        Log.e("lol", "here");
 
         if (id == R.id.nav_share) {
 //            SharingFragment sharingFragment = (SharingFragment) fragmentManager.findFragmentByTag(TAG_1);
