@@ -30,6 +30,15 @@ public class MainActivity extends Activity
     final static String TAG_3 = "FRAGMENT_3";
     final static String TAG_4 = "FRAGMENT_4";
 
+    public static MainActivity getMain() {
+        return main;
+    }
+
+    public static void setMain(MainActivity main) {
+        MainActivity.main = main;
+    }
+
+    private static MainActivity main;
     final static String KEY_MSG_1 = "FRAGMENT1_MSG";
     final static String KEY_MSG_2 = "FRAGMENT2_MSG";
     final static String KEY_MSG_3 = "FRAGMENT3_MSG";
@@ -40,7 +49,7 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
+        main = this;
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -98,30 +107,12 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    public static MainActivity getMain() {
-        return main;
-    }
-
-    public static void setMain(MainActivity main) {
-        MainActivity.main = main;
-    }
-
-    private static MainActivity main;
     private SharingFragment sharingFragment = new SharingFragment();
     private WatchFragment watchFragment = new WatchFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
     private HelpFragment helpFragment = new HelpFragment();
 
     private int lastSelected = 0;
-
-    @Override
-    public FragmentManager getFragmentManager() {
-        return fragmentManager;
-    }
-
-    public void setFragmentManager(FragmentManager fragmentManager) {
-        this.fragmentManager = fragmentManager;
-    }
 
     @SuppressLint("CommitTransaction")
     @SuppressWarnings("StatementWithEmptyBody")
@@ -130,7 +121,6 @@ public class MainActivity extends Activity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
         if(id == lastSelected) {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
@@ -138,7 +128,7 @@ public class MainActivity extends Activity
         }
 
         lastSelected = id;
-        main = this;
+
         Log.e("lol", "here");
 
         if (id == R.id.nav_share) {

@@ -11,9 +11,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class PublicStaticObjects {
 
+    public static ArrayList<Integer> getListTransId() {
+        return listTransId;
+    }
+
+    public static void setListTransId(ArrayList<Integer> listTransId) {
+        PublicStaticObjects.listTransId = listTransId;
+    }
+
+    private static ArrayList<Integer> listTransId = new ArrayList<Integer>();
     private static MediaProjectionManager projectionManager;
 
     public static void setProjectionManager(MediaProjectionManager projectionManager) {

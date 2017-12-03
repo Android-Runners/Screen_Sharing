@@ -24,6 +24,7 @@ public class Initialization implements Runnable {
             PublicStaticObjects.setSocket(socket);
             PublicStaticObjects.setObjectInputStream(new ObjectInputStream(socket.getInputStream()));
             PublicStaticObjects.setObjectOutputStream(new ObjectOutputStream(socket.getOutputStream()));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
