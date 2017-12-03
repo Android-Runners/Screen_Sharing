@@ -62,6 +62,8 @@ public class MainActivity extends Activity
         navigationView.getMenu().getItem(0).setChecked(true);
 
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
+
+        Log.e("title", "help fragment(this)");
     }
 
     @Override
@@ -122,7 +124,8 @@ public class MainActivity extends Activity
 
         if (id == R.id.nav_share) {
 //            SharingFragment sharingFragment = (SharingFragment) fragmentManager.findFragmentByTag(TAG_1);
-//            SharingFragment sharingFragment = new SharingFragment();
+
+            helpFragment.setMainActivity(this);
 
             if(sharingFragment != null) {
                 Bundle bundle = new Bundle();
@@ -172,7 +175,7 @@ public class MainActivity extends Activity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        setTitle(item.getTitle());
+//        setTitle(item.getTitle());
 
         return true;
     }

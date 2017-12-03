@@ -9,11 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.savelyevlad.screensharing.MainActivity;
 import com.savelyevlad.screensharing.R;
 
 public final class HelpFragment extends Fragment {
 
     final static String KEY_MSG_4 = "FRAGMENT4_MSG";
+
+    public MainActivity getMainActivity() {
+        return mainActivity;
+    }
+
+    public void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
+
+    private MainActivity mainActivity;
 
     @Nullable
     @Override
