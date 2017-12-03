@@ -6,15 +6,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import com.savelyevlad.screensharing.help.HelpFragment;
 import com.savelyevlad.screensharing.settings.SettingsFragment;
@@ -35,8 +34,6 @@ public class MainActivity extends Activity
     final static String KEY_MSG_2 = "FRAGMENT2_MSG";
     final static String KEY_MSG_3 = "FRAGMENT3_MSG";
     final static String KEY_MSG_4 = "FRAGMENT4_MSG";
-
-    public EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,19 +98,8 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    public int debil = 0;
     private SharingFragment sharingFragment = new SharingFragment();
-
-    public WatchFragment getWatchFragment() {
-        return watchFragment;
-    }
-
     private WatchFragment watchFragment = new WatchFragment();
-
-    public SettingsFragment getSettingsFragment() {
-        return settingsFragment;
-    }
-
     private SettingsFragment settingsFragment = new SettingsFragment();
     private HelpFragment helpFragment = new HelpFragment();
 
@@ -139,7 +125,7 @@ public class MainActivity extends Activity
         if (id == R.id.nav_share) {
 //            SharingFragment sharingFragment = (SharingFragment) fragmentManager.findFragmentByTag(TAG_1);
 
-      //      helpFragment.setMainActivity(this);
+            helpFragment.setMainActivity(this);
 
             if(sharingFragment != null) {
                 Bundle bundle = new Bundle();
@@ -157,6 +143,7 @@ public class MainActivity extends Activity
                 Bundle bundle = new Bundle();
                 bundle.putString(KEY_MSG_2, "lol");
                 watchFragment.setArguments(bundle);
+
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container, watchFragment, TAG_2);
                 fragmentTransaction.commit();
@@ -164,19 +151,13 @@ public class MainActivity extends Activity
         } else if (id == R.id.nav_settings) {
 
             if(settingsFragment != null) {
-                this.debil = 5;
                 Bundle bundle = new Bundle();
                 bundle.putString(KEY_MSG_3, "lol");
                 settingsFragment.setArguments(bundle);
 
-//                Activity activity = settingsFragment.getActivity();
-//                editText = activity.findViewById(R.id.editText_ip);
-
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container, settingsFragment, TAG_3);
                 fragmentTransaction.commit();
-
-                int[] a = new int[5];
             }
         } else if (id == R.id.nav_help) {
 
