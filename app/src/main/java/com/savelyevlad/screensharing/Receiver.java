@@ -10,12 +10,6 @@ import com.savelyevlad.screensharing.watch.WatchFragment;
 
 public class Receiver implements Runnable {
 
-    private byte[] concat(byte[] a, byte[] b) {
-        byte[] t = new byte[a.length + b.length];
-        System.arraycopy(a, 0, t, 0, a.length);
-        System.arraycopy(b, 0, t, a.length, b.length);
-        return t;
-    }
     private ImageView imageView;
 
     private WatchFragment activityWatch;
@@ -28,15 +22,9 @@ public class Receiver implements Runnable {
     @Override
     public void run() {
         while (true) {
-        /*    synchronized (this) {
-                if (!ActivityWatch.isMustBeAlive()) {
-                   return;
-                }
-            }*/
             try {
                 byte[] buf = (byte[])PublicStaticObjects.getObjectInputStream().readObject();
                 Bitmap receiveBitmap = BitmapFactory.decodeByteArray(buf, 0, buf.length);
-              //  PublicStaticObjects.setCount(PublicStaticObjects.getCount()+1);
                 Log.e("in Receiver", "" + (receiveBitmap == null));
                 changeImage(receiveBitmap);
             } catch (Throwable e) {
@@ -46,12 +34,6 @@ public class Receiver implements Runnable {
     }
 
     private void changeImage(final Bitmap bitmap) {
-        MainActivity.getMain().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                imageView.setImageBitmap(bitmap);
-            }
-        });
-
+        MainActivity.getMain().runOnUiThread(() -> imageView.setImageBitmap(bitmap));
     }
 }

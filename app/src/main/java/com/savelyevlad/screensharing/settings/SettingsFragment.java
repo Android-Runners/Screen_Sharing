@@ -105,34 +105,31 @@ public final class SettingsFragment extends Fragment {
                 editTextPORT.setText(String.valueOf(PublicStaticObjects.getPORT()));
                 editTextIp.setText(s);
 
-                buttonSave.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        String IP = String.valueOf(editTextIp.getText());
-                        String PORT = String.valueOf(editTextPORT.getText());
+                buttonSave.setOnClickListener(view1 -> {
+                    String IP = String.valueOf(editTextIp.getText());
+                    String PORT = String.valueOf(editTextPORT.getText());
 
-                        try {
-                            InetAddress inetAddress = InetAddress.getByName(IP);
-                        } catch (Exception e) {
-                            Context context = view.getContext().getApplicationContext();
-                            CharSequence text = "It's not an IP!";
-                            int duration = Toast.LENGTH_SHORT;
-                            Toast toast = Toast.makeText(context, text, duration);
-                            toast.show();
-                            return;
-                        }
+                    try {
+                        InetAddress inetAddress = InetAddress.getByName(IP);
+                    } catch (Exception e) {
+                        Context context = view1.getContext().getApplicationContext();
+                        CharSequence text = "It's not an IP!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        return;
+                    }
 
-                        File file = new File(folderPath + "Config.txt");
+                    File file = new File(folderPath + "Config.txt");
 
-                        try {
-                            FileOutputStream fileOutputStream = new FileOutputStream(file);
-                            fileOutputStream.write((IP + " " + PORT).getBytes());
-                            PublicStaticObjects.setIp(InetAddress.getByName(IP));
-                            PublicStaticObjects.setPORT(Integer.valueOf(PORT));
-                            fileOutputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        FileOutputStream fileOutputStream = new FileOutputStream(file);
+                        fileOutputStream.write((IP + " " + PORT).getBytes());
+                        PublicStaticObjects.setIp(InetAddress.getByName(IP));
+                        PublicStaticObjects.setPORT(Integer.valueOf(PORT));
+                        fileOutputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 });
             }

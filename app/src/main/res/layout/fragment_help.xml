@@ -23,6 +23,9 @@
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="28sp"
-            style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"/>
+            android:shadowColor="@color/colorPrimary"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="1"/>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

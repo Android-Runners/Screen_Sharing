@@ -63,70 +63,49 @@ public final class WatchFragment extends Fragment {
         if(bundle != null) {
             String msg = bundle.getString(KEY_MSG_2);
             if(msg != null) {
-                Log.e("lol", "in watch " + (main == null));
                 startFab = view.findViewById(R.id.startFab);
                 imageView = view.findViewById(R.id.imageView);
                 pauseFab = view.findViewById(R.id.pauseFab);
                 editTextID = view.findViewById(R.id.editText_ID);
-              //  activityWatch = this;
 
                 PublicStaticObjects.initSocket();
 
-                pauseFab.setOnClickListener(new View.OnClickListener() {
+                pauseFab.setOnClickListener(view1 -> new Thread(() -> mustBeAlive = false).start());
 
-                    @Override
-                    public void onClick(View view) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public synchronized void run() {
-                                try {
-                                    mustBeAlive = false;
-                                }catch(Exception e){}
-                            }
-                        }).start();
-                    }
-                });
-
-                startFab.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        // Can I join someone?
-                        mustBeAlive = true;
-                        thread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    PublicStaticObjects.getObjectOutputStream().writeObject(-3);
-                                    id = Integer.valueOf(String.valueOf(editTextID.getText()));
-                                    PublicStaticObjects.getObjectOutputStream().writeObject(Integer.valueOf(String.valueOf(editTextID.getText())));
-                                    try {
-                                        Object object = PublicStaticObjects.getObjectInputStream().readObject();
-                                        if (!object.equals("-3")) {
-                                            canJoin = true;
-                                        } else {
-                                            canJoin = false;
-//                        TODO: toast
-//                        Toast.makeText();
-                                        }
-                                    } catch (ClassNotFoundException e) {
-                                        e.printStackTrace();
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                        thread.start();
+                startFab.setOnClickListener(view12 -> {
+                    // Can I join someone?
+                    mustBeAlive = true;
+                    thread = new Thread(() -> {
                         try {
-                            thread.join();
-                        } catch (InterruptedException e) {
+                            PublicStaticObjects.getObjectOutputStream().writeObject(-3);
+                            id = Integer.valueOf(String.valueOf(editTextID.getText()));
+                            PublicStaticObjects.getObjectOutputStream().writeObject(Integer.valueOf(String.valueOf(editTextID.getText())));
+                            try {
+                                Object object = PublicStaticObjects.getObjectInputStream().readObject();
+                                if (!object.equals("-3")) {
+                                    canJoin = true;
+                                } else {
+                                    canJoin = false;
+//                                TODO: toast
+//                                Toast.makeText();
+                                }
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        if (canJoin) {
-                            Thread thread1 = new Thread(new Receiver(activityWatch, imageView));
-                            thread1.setPriority(Thread.MAX_PRIORITY);
-                            thread1.start();
-                        }
+                    });
+                    thread.start();
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (canJoin) {
+                        Thread thread1 = new Thread(new Receiver(activityWatch, imageView));
+                        thread1.setPriority(Thread.MAX_PRIORITY);
+                        thread1.start();
                     }
                 });
 

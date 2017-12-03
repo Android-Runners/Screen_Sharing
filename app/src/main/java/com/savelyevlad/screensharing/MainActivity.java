@@ -1,11 +1,15 @@
 package com.savelyevlad.screensharing;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.savelyevlad.screensharing.help.HelpFragment;
 import com.savelyevlad.screensharing.settings.SettingsFragment;
@@ -73,6 +78,36 @@ public class MainActivity extends Activity
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
 
         Log.e("title", "help fragment(this)");
+
+        requestMultiplePermissions();
+    }
+
+    public void requestMultiplePermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[] {
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                },
+                228);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        boolean f = false;
+        if (requestCode == 228 && grantResults.length == 2) {
+            f = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            f = f && grantResults[1] == PackageManager.PERMISSION_GRANTED;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(!f) {
+            Toast.makeText(getApplicationContext(), "You did not give necessary permissions", Toast.LENGTH_LONG).show();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.exit(0);
+        }
     }
 
     @Override
@@ -132,7 +167,6 @@ public class MainActivity extends Activity
         Log.e("lol", "here");
 
         if (id == R.id.nav_share) {
-//            SharingFragment sharingFragment = (SharingFragment) fragmentManager.findFragmentByTag(TAG_1);
 
             helpFragment.setMainActivity(this);
 
@@ -184,6 +218,7 @@ public class MainActivity extends Activity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
+        // TODO: set title
 //        setTitle(item.getTitle());
 
         return true;
