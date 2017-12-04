@@ -18,7 +18,7 @@
             android:title="@string/settings_for_developers" />
         <item
             android:id="@+id/nav_help"
-            android:icon="@android:drawable/ic_menu_view"
+            android:icon="@android:drawable/ic_dialog_alert"
             android:title="@string/help" />
     </group>
 

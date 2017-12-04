@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,10 @@ import com.savelyevlad.screensharing.watch.WatchFragment;
 public class MainActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public FragmentManager getFragmentManager1() {
+        return fragmentManager;
+    }
+
     private FragmentManager fragmentManager;
 
     final static String TAG_1 = "FRAGMENT_1";
@@ -43,6 +48,7 @@ public class MainActivity extends Activity
     }
 
     private static MainActivity main;
+
     final static String KEY_MSG_1 = "FRAGMENT1_MSG";
     final static String KEY_MSG_2 = "FRAGMENT2_MSG";
     final static String KEY_MSG_3 = "FRAGMENT3_MSG";
@@ -221,5 +227,10 @@ public class MainActivity extends Activity
 //        setTitle(item.getTitle());
 
         return true;
+    }
+
+    public void changeAcivity() {
+        Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
+        startActivity(intent);
     }
 }

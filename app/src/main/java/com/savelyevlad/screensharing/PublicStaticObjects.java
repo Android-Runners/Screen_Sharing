@@ -3,6 +3,8 @@ package com.savelyevlad.screensharing;
 import android.media.projection.MediaProjectionManager;
 import android.os.Environment;
 
+import com.savelyevlad.screensharing.watch.WatchFragment;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,6 +16,16 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class PublicStaticObjects {
+
+    public static Receiver getReceiver() {
+        return receiver;
+    }
+
+    public static void setReceiver(Receiver receiver) {
+        PublicStaticObjects.receiver = receiver;
+    }
+
+    private static Receiver receiver;
 
     public static ArrayList<Integer> getListTransId() {
         return listTransId;

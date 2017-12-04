@@ -2,6 +2,8 @@ package com.savelyevlad.screensharing.watch;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.savelyevlad.screensharing.FullscreenActivity;
 import com.savelyevlad.screensharing.MainActivity;
 import com.savelyevlad.screensharing.PublicStaticObjects;
 import com.savelyevlad.screensharing.R;
@@ -24,6 +27,15 @@ public final class WatchFragment extends Fragment {
     final static String KEY_MSG_2 = "FRAGMENT2_MSG";
     private FloatingActionButton startFab;
     private FloatingActionButton pauseFab;
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
     private ImageView imageView;
 
     private EditText editTextID;
@@ -70,7 +82,10 @@ public final class WatchFragment extends Fragment {
 
                 PublicStaticObjects.initSocket();
 
-                pauseFab.setOnClickListener(view1 -> new Thread(() -> mustBeAlive = false).start());
+                pauseFab.setOnClickListener(view1 -> {
+                    MainActivity.getMain().changeAcivity();
+                    FullscreenActivity.setImageFullScreen(imageView);
+                });
 
                 startFab.setOnClickListener(view12 -> {
                     // Can I join someone?

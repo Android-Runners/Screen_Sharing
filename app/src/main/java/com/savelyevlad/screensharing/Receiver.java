@@ -12,11 +12,23 @@ public class Receiver implements Runnable {
 
     private ImageView imageView;
 
+    public ImageView getImageViewFullScreen() {
+        return imageViewFullScreen;
+    }
+
+    public void setImageViewFullScreen(ImageView imageViewFullScreen) {
+        this.imageViewFullScreen = imageViewFullScreen;
+    }
+
+    private ImageView imageViewFullScreen;
+
     private WatchFragment activityWatch;
 
     public Receiver(WatchFragment activityWatch, ImageView imageView) {
         this.imageView = imageView;
         this.activityWatch = activityWatch;
+
+        PublicStaticObjects.setReceiver(this);
     }
 
     @Override
@@ -34,6 +46,11 @@ public class Receiver implements Runnable {
     }
 
     private void changeImage(final Bitmap bitmap) {
-        MainActivity.getMain().runOnUiThread(() -> imageView.setImageBitmap(bitmap));
+        MainActivity.getMain().runOnUiThread(() -> {
+            imageView.setImageBitmap(bitmap);
+            if(imageViewFullScreen != null) {
+                imageViewFullScreen.setImageBitmap(bitmap);
+            }
+        });
     }
 }
