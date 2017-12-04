@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/fragment_watch">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -32,9 +34,9 @@
                     android:id="@+id/editText_ID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textSize="30sp" />
 
             </LinearLayout>
 
@@ -51,6 +53,15 @@
                     android:layout_weight="0.89" />
             </LinearLayout>
         </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="293dp"
+            android:layout_height="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.08" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

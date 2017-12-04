@@ -9,8 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.savelyevlad.screensharing.MainActivity;
 import com.savelyevlad.screensharing.PublicStaticObjects;
@@ -24,6 +28,7 @@ public final class WatchFragment extends Fragment {
     final static String KEY_MSG_2 = "FRAGMENT2_MSG";
     private FloatingActionButton startFab;
     private FloatingActionButton pauseFab;
+    private FloatingActionButton reloadFab;
     private ImageView imageView;
 
     private EditText editTextID;
@@ -52,6 +57,8 @@ public final class WatchFragment extends Fragment {
 
     private Thread thread;
 
+    private Spinner spinner;
+
     private int id;
     @Nullable
     @Override
@@ -66,11 +73,61 @@ public final class WatchFragment extends Fragment {
                 startFab = view.findViewById(R.id.startFab);
                 imageView = view.findViewById(R.id.imageView);
                 pauseFab = view.findViewById(R.id.pauseFab);
+                reloadFab = view.findViewById(R.id.refreshFab);
                 editTextID = view.findViewById(R.id.editText_ID);
+                spinner = view.findViewById(R.id.spinner);
+
+                String[] data = {"Savelyev", "Daniil", "Alex", "Serg"};
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, data);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinner.setAdapter(adapter);
+
+                spinner.setPrompt("Translators");
+
+                spinner.setSelection(0);
 
                 PublicStaticObjects.initSocket();
 
                 pauseFab.setOnClickListener(view1 -> new Thread(() -> mustBeAlive = false).start());
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(getActivity().getBaseContext(), "Position = " + i, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+                reloadFab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Thread t = new Thread(new Runnable() {
+                            @Override
+                            public synchronized void run() {
+                                try {
+                                    Log.e("in reload", "Before reading");
+                                    PublicStaticObjects.getObjectOutputStream().writeObject(-5);
+                                    Log.e("in reload", "After reading");
+                                  /*  byte[] trans = (byte[])PublicStaticObjects.getObjectInputStream().readObject();
+                                    Log.e("in reload", Arrays.toString(trans));*/
+                                }catch(Exception e){}
+                            }
+                        });
+                        t.start();
+                        try {
+                            t.join();
+                            PublicStaticObjects.setMinusFive(false);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
                 startFab.setOnClickListener(view12 -> {
                     // Can I join someone?

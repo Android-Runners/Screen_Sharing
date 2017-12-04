@@ -30,6 +30,16 @@ public class PublicStaticObjects {
         PublicStaticObjects.projectionManager = projectionManager;
     }
 
+    public static boolean isMinusFive() {
+        return isMinusFive;
+    }
+
+    public static void setMinusFive(boolean minusFive) {
+        isMinusFive = minusFive;
+    }
+
+    private static boolean isMinusFive = false;
+
     public static boolean isClicked() {
         return isClicked;
     }
