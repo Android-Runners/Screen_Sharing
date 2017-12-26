@@ -1,6 +1,7 @@
 package com.savelyevlad.screensharing;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.savelyevlad.screensharing.watch.WatchFragment;
 
@@ -110,7 +112,9 @@ public class FullscreenActivity extends AppCompatActivity {
         // while interacting with the UI.
 //        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
-        PublicStaticObjects.getReceiver().setImageViewFullScreen(imageFullScreen);
+        if(PublicStaticObjects.getReceiver() != null) {
+            PublicStaticObjects.getReceiver().setImageViewFullScreen(imageFullScreen);
+        }
         Log.e("In FullScreenActivity", " " + (imageFullScreen == null));
     }
 

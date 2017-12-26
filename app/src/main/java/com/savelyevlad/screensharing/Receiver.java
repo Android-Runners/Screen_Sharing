@@ -34,13 +34,18 @@ public class Receiver implements Runnable {
     @Override
     public void run() {
         while (true) {
+            if(!WatchFragment.isMustBeAlive()) {
+                return;
+            }
             try {
-                byte[] buf = (byte[])PublicStaticObjects.getObjectInputStream().readObject();
+                byte[] buf = (byte[]) PublicStaticObjects.getObjectInputStream().readObject();
                 Bitmap receiveBitmap = BitmapFactory.decodeByteArray(buf, 0, buf.length);
                 Log.e("in Receiver", "" + (receiveBitmap == null));
-                changeImage(receiveBitmap);
-            } catch (Throwable e) {
-                Log.e("!!!!!!",e.getMessage());
+                if(WatchFragment.isIsReceiving()) {
+                    changeImage(receiveBitmap);
+                }
+            } catch (Exception e) {
+                Log.e("!!!!!!", e.getMessage());
             }
         }
     }

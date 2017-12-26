@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -232,5 +233,14 @@ public class MainActivity extends Activity
     public void changeAcivity() {
         Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
         startActivity(intent);
+    }
+
+    public void show(String s) {
+        MainActivity.this.runOnUiThread(() -> {
+            Context context = this.getBaseContext().getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, s, duration);
+            toast.show();
+        });
     }
 }

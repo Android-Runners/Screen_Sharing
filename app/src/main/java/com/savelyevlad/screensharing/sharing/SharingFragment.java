@@ -140,8 +140,8 @@ public final class SharingFragment extends Fragment {
                 Display display = MainActivity.getMain().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
-                displayHeight=size.y;
-                displayWidth=size.x;
+                displayHeight = size.y;
+                displayWidth = size.x;
 
 
                 imageReader = ImageReader.newInstance(size.x, size.y, PixelFormat.RGBA_8888, 2);
@@ -191,7 +191,7 @@ public final class SharingFragment extends Fragment {
             ByteArrayOutputStream stream = null;
             try {
                 image = imageReader.acquireLatestImage();
-                if (image != null) {
+                if (image != null && !PublicStaticObjects.isStopped()) {
                     Image.Plane[] planes = image.getPlanes();
                     ByteBuffer buffer = planes[0].getBuffer();
                     if(!isAlready) {
@@ -205,9 +205,8 @@ public final class SharingFragment extends Fragment {
 
                     bitmap1 = bitmap.copy(Bitmap.Config.ARGB_4444, false);
 
-                    if(!PublicStaticObjects.isStopped()) {
-                        sendImage(bitmap1);
-                    }
+
+                    sendImage(bitmap1);
 
                     isAlready = true;
                 }
